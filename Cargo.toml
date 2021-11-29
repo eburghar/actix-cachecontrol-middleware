@@ -1,0 +1,20 @@
+[package]
+name = "actix-cachecontrol-middleware"
+description = "actix middleware for controlling cache-control header based on path prefix and suffix"
+authors = ["Éric BURGHARD <eric@itsufficient.me>"]
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+actix-web = { version = "3", default-features = false}
+actix-service = "1"
+futures = "0.3"
+serde = "1.0.130"
+serde-vecmap = "0.1.0"
+
+[dev-dependencies]
+actix-rt = "1"
+
+[patch.crates-io]
+serde-vecmap = { git = "https://github.com/eburghar/serde-vecmap.git", branch = "master" }
+#serde-vecmap = { path = "../serde-vecmap" }
