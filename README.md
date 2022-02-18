@@ -26,3 +26,6 @@ async fn serve() -> Result<()> {
     Ok(())
 }
 ```
+
+Note that the deserialization maintains order declaration, and that order is important. The first match wins and
+sets the cache header. Suffixes are matched before prefixes.

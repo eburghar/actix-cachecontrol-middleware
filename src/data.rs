@@ -17,16 +17,16 @@ pub struct CacheControl {
 impl CacheControl {
 	/// return the first cache-control value that match path as a prefix or as a suffix
 	pub fn get_value(&self, path: &str) -> Option<&str> {
-		if let Some(ref prefixes) = self.prefixes {
-			for (prefix, value) in prefixes.iter() {
-				if path.starts_with(prefix) {
+		if let Some(ref suffixes) = self.suffixes {
+			for (suffix, value) in suffixes.iter() {
+				if path.ends_with(suffix) {
 					return Some(value);
 				}
 			}
 		}
-		if let Some(ref suffixes) = self.suffixes {
-			for (suffix, value) in suffixes.iter() {
-				if path.ends_with(suffix) {
+		if let Some(ref prefixes) = self.prefixes {
+			for (prefix, value) in prefixes.iter() {
+				if path.starts_with(prefix) {
 					return Some(value);
 				}
 			}
