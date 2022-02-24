@@ -84,12 +84,10 @@ where
 
 		async move {
 			let mut res = fut.await?;
+			// set cache control value to the value specified in a rule in case of match
 			if let Some(cache_control) = cache_control.get_value(&path) {
 				res.headers_mut()
 					.insert(CACHE_CONTROL, HeaderValue::from_str(cache_control)?);
-			} else {
-				res.headers_mut()
-					.insert(CACHE_CONTROL, HeaderValue::from_static("private,max-age=0"));
 			}
 			Ok(res)
 		}

@@ -2,7 +2,7 @@
 name = "actix-cachecontrol-middleware"
 description = "actix middleware for controlling cache-control header based on path prefix and suffix"
 authors = ["Éric BURGHARD <eric@itsufficient.me>"]
-version = "0.1.1"
+version = "0.1.2"
 edition = "2018"
 
 [dependencies]

@@ -4,7 +4,7 @@ Define 1 middleware to control cache-control header under actix-web
 paths to cache-control header values. One is used for matching prefixes, and the other for suffixes.
 
 The example below defines a max-age of one year for every path starting with `/_app/`, and the other one, sets
-no cache on every path ending with `index.html`.
+no cache on every path ending with `.html` and `.json`.
 
 ```rust
 use actix_cachecontrol_middleware::{data::CacheControl, middleware::CacheHeaders};
@@ -15,7 +15,7 @@ async fn serve() -> Result<()> {
     // Structure to drive the CacheHeadersMiddleware instanciated by CacheHeaders factory (can be deserialized with serde)
     let cache_control = CacheControl {
         prefixes: vec![("/_app/", "max-age=2678400")],
-        suffixes: vec![("index.html", "private,max-age=0")],
+        suffixes: vec![(".html", "no-cache",".json":"no-cache")],
     };
     let server = HttpServer::new(move || {
         App::new()
@@ -27,5 +27,16 @@ async fn serve() -> Result<()> {
 }
 ```
 
-Note that the deserialization maintains order declaration, and that order is important. The first match wins and
-sets the cache header. Suffixes are matched before prefixes.
+Note that the deserialization from a dictionnary maintains order of the keys, and the same `CacheControl` structure
+than the example above could be deserialized from :
+
+```yaml
+cache:
+  prefixes:
+    "_app": "max-age=2678400"
+  suffices:
+    ".html": "no-cache"
+    ".json": "no-cache"
+```
+
+Suffixes are matched before prefixes, and the first match wins and sets the cache header.
